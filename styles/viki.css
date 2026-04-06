@@ -1,0 +1,74 @@
+.specialties-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.specialty-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 24px 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.specialty-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  border-color: #003399;
+}
+
+.specialty-card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.specialty-code {
+  font-size: 18px;
+  font-weight: 700;
+  color: #003399;
+  margin-bottom: 12px;
+}
+
+.specialty-title {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .specialties-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .specialty-card { padding: 22px 18px; }
+  .specialty-code { font-size: 17px; }
+  .specialty-title { font-size: 15px; }
+}
+
+@media (max-width: 600px) {
+  .specialties-grid { grid-template-columns: 1fr; gap: 18px; }
+  .specialty-card { padding: 20px 16px; }
+  .specialty-code { font-size: 16px; }
+  .specialty-title { font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+  .specialties-grid { gap: 16px; }
+  .specialty-card { padding: 18px 14px; }
+  .specialty-code { font-size: 15px; margin-bottom: 10px; }
+  .specialty-title { font-size: 13px; }
+}
+
+@media (max-width: 360px) {
+  .specialty-card { padding: 16px 12px; }
+  .specialty-code { font-size: 14px; }
+  .specialty-title { font-size: 12px; }
+}
+
+@media (max-width: 320px) {
+  .specialty-card { padding: 14px 10px; }
+  .specialty-code { font-size: 13px; }
+  .specialty-title { font-size: 11px; }
+}

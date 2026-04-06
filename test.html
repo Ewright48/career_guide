@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Профориентационный тест | ПТК НовГУ</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <link rel="stylesheet" href="./styles/common.css">
+    <link rel="stylesheet" href="./styles/test.css">
+</head>
+<body>
+    <header>
+        <nav class="top-nav">
+            <div class="top-nav-container" id="navMenu">
+                <a href="vikipedia.html" class="nav-link">Википедия специальностей</a>
+                <a href="test.html" class="nav-link">Тест на профориентацию</a>
+                <a href="#" class="nav-link">О нас</a>
+                <a href="#" class="nav-link">Фото</a>
+            </div>
+            <button class="burger-btn" id="burgerBtn" aria-label="Меню">
+                <span class="burger-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="logo">
+            <img src="./images/NovSU_logo_rus_horizontal 1.png" alt="Новгородский государственный университет имени Ярослава Мудрого">
+        </div>
+
+        <div class="back-btn-container">
+            <button class="back-btn" onclick="history.back()">
+                <span>←</span> Назад
+            </button>
+        </div>
+
+        <div class="breadcrumb">
+            <a href="main.html">Главная</a> &gt;
+            <span>Профориентационный тест</span>
+        </div>
+
+        <div class="test-header">
+            <h1>Профориентационный тест</h1>
+            <p>Поможем выбрать специальность, которая подходит именно вам!</p>
+        </div>
+
+        <div id="instructionModal" class="modal-overlay">
+            <div class="modal-window">
+                <h3>Инструкция</h3>
+                <p>Оцените каждое утверждение по шкале от 1 до 5:</p>
+                <div class="scale-modal">
+                    <div class="scale-modal-item"><span class="scale-modal-number">1</span><br>совсем не интересно</div>
+                    <div class="scale-modal-item"><span class="scale-modal-number">2</span><br>скорее не интересно</div>
+                    <div class="scale-modal-item"><span class="scale-modal-number">3</span><br>нейтрально</div>
+                    <div class="scale-modal-item"><span class="scale-modal-number">4</span><br>интересно</div>
+                    <div class="scale-modal-item"><span class="scale-modal-number">5</span><br>очень интересно</div>
+                </div>
+                <button class="modal-ok-btn" id="closeModalBtn">Начать тест →</button>
+            </div>
+        </div>
+
+        <div class="test-container" id="testContainer" style="display: none;">
+            <div id="testForm"></div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+                <div class="progress-text" id="progressText">Вопрос 0 из 25</div>
+            </div>
+
+            <div class="submit-btn">
+                <button type="button" class="btn-primary" id="submitBtn">Узнать результат →</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div>© НовГУ 1993-2025</div>
+        <div class="footer-left">
+            <a href="#">Сведения об образовательной организации</a>
+            <a href="#">Политика конфиденциальности</a>
+        </div>
+        <div class="footer-right">
+            ул.Большая Санкт-Петербургская,41, каб.1101,1103<br>
+            Приемная комиссия: +7(8162)33-20-44
+        </div>
+    </footer>
+
+    <script>
+        // Бургер-меню скрипт
+        (function() {
+            const burger = document.getElementById('burgerBtn');
+            const menu = document.getElementById('navMenu');
+            
+            if (burger && menu) {
+                burger.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    menu.classList.toggle('open');
+                    burger.classList.toggle('active');
+                });
+                
+                menu.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        menu.classList.remove('open');
+                        burger.classList.remove('active');
+                    });
+                });
+                
+                document.addEventListener('click', function(event) {
+                    if (!menu.contains(event.target) && !burger.contains(event.target)) {
+                        menu.classList.remove('open');
+                        burger.classList.remove('active');
+                    }
+                });
+            }
+        })();
+
+        const blocks = [
+            {
+                id: 1,
+                name: "Работа с техникой",
+                specialities: [
+                    "23.02.07 Техническое обслуживание и ремонт двигателей, систем и агрегатов автомобилей",
+                    "09.02.01 Компьютерные системы и комплексы",
+                    "11.01.02 Радиомеханик"
+                ],
+                questions: [
+                    "Осуществлять ремонт бытовых электроприборов, компьютеров и другой техники.",
+                    "Собирать и разбирать механизмы, чтобы понять их устройство (конструкторы, модели).",
+                    "Настраивать и обслуживать сетевые устройства.",
+                    "Работать с измерительными приборами для поиска неисправностей.",
+                    "Читать технические схемы, чертежи, инструкции по сборке."
+                ]
+            },
+            {
+                id: 2,
+                name: "IT сфера",
+                specialities: [
+                    "09.02.06 Сетевое и системное администрирование",
+                    "09.02.07 Информационные системы и программирование"
+                ],
+                questions: [
+                    "Писать код, создавать программы, приложения или веб-сайты.",
+                    "Разбираться в настройках компьютера и программ, настраивать программное обеспечение.",
+                    "Решать логические задачи.",
+                    "Анализировать данные, отслеживать информацию, сортировать и фильтровать данные, работать с таблицами, придумывать алгоритмы действий.",
+                    "Заниматься защитой информации, настраивать сетевую безопасность."
+                ]
+            },
+            {
+                id: 3,
+                name: "Электроника и разработка устройств",
+                specialities: [
+                    "11.02.17 Разработка электронных устройств и систем",
+                    "11.02.13 Твердотельная электроника"
+                ],
+                questions: [
+                    "Паять электронные схемы, создавать свои устройства.",
+                    "Изучать как работают процессоры, чипы и другие электронные компоненты.",
+                    "Придумывать и проектировать новые электронные устройства или компоненты.",
+                    "Интересоваться новинками в области микроэлектроники и нанотехнологий.",
+                    "Настраивать и ремонтировать радиоэлектронную аппаратуру."
+                ]
+            },
+            {
+                id: 4,
+                name: "Робототехника, автоматизация и машиностроение",
+                specialities: [
+                    "15.02.18 Техническая эксплуатация и обслуживание роботизированного производства",
+                    "15.02.16 Технология машиностроения",
+                    "25.02.08 Эксплуатация беспилотных авиационных систем"
+                ],
+                questions: [
+                    "Работать с автоматическими системами и роботами.",
+                    "Разбираться в устройстве станков с числовым программным управлением (ЧПУ), промышленных манипуляторов.",
+                    "Разрабатывать и читать чертежи деталей и механизмов.",
+                    "Интересоваться принципами работы двигателей, гидравлических и пневматических систем.",
+                    "Управлять или программировать беспилотные летательные аппараты (дроны)."
+                ]
+            },
+            {
+                id: 5,
+                name: "Дизайн",
+                specialities: [
+                    "54.02.01 Дизайн (по отраслям)",
+                    "54.01.20 Графический дизайнер"
+                ],
+                questions: [
+                    "Создавать графические изображения, логотипы, макеты для полиграфии или веба.",
+                    "Работать с программами для 3D-моделирования, анимации или вёрстки.",
+                    "Разрабатывать дизайн интерфейсов для сайтов и приложений (UI/UX).",
+                    "Рисовать от руки, заниматься фотографией или видеомонтажом.",
+                    "Продумывать внешний вид продукта, упаковки, интерьера."
+                ]
+            }
+        ];
+
+        let totalQuestions = 0;
+        let selectedValues = {};
+
+        function renderForm() {
+            const container = document.getElementById('testForm');
+            if (!container) return;
+
+            let html = '';
+
+            blocks.forEach((block, blockIndex) => {
+                const specialitiesHtml = block.specialities.map(spec => `<span>${spec}</span>`).join('');
+
+                html += `
+                    <div class="block">
+                        <div class="block-header">
+                            <h2>Блок ${block.id}: ${block.name}</h2>
+                            <div class="block-specialities">
+                                <strong>Специальности и направления:</strong><br>
+                                ${specialitiesHtml}
+                            </div>
+                        </div>
+                        <div class="questions">
+                `;
+
+                block.questions.forEach((q, qIndex) => {
+                    const questionId = `q${blockIndex}_${qIndex}`;
+                    const savedValue = selectedValues[questionId] || 0;
+
+                    html += `
+                        <div class="question-item">
+                            <div class="question-text">${qIndex + 1}. ${q}</div>
+                            <div class="rating-scale">
+                                <div class="rating-line"></div>
+                                <div class="rating-circles" data-question="${questionId}">
+                    `;
+
+                    for (let score = 1; score <= 5; score++) {
+                        const isSelected = savedValue === score;
+                        html += `
+                            <div class="circle-option ${isSelected ? 'selected' : ''}" data-score="${score}">
+                                <div class="circle"></div>
+                                <span class="circle-label">${score}</span>
+                                <input type="radio" name="${questionId}" value="${score}" ${isSelected ? 'checked' : ''} style="display:none;">
+                            </div>
+                        `;
+                    }
+
+                    html += `
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+
+                totalQuestions += block.questions.length;
+            });
+
+            container.innerHTML = html;
+
+            document.querySelectorAll('.rating-circles').forEach(scale => {
+                const questionId = scale.getAttribute('data-question');
+                const options = scale.querySelectorAll('.circle-option');
+
+                options.forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        options.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+
+                        const score = parseInt(option.getAttribute('data-score'));
+                        const radio = option.querySelector('input');
+                        if (radio) radio.checked = true;
+
+                        selectedValues[questionId] = score;
+                        updateProgress();
+                    });
+                });
+            });
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            let answered = Object.keys(selectedValues).length;
+            const percent = totalQuestions > 0 ? (answered / totalQuestions) * 100 : 0;
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            if (progressBar) progressBar.style.width = percent + '%';
+            if (progressText) progressText.innerText = `Вопрос ${answered} из ${totalQuestions}`;
+        }
+
+        function getQuestionValue(blockIndex, qIndex) {
+            const questionId = `q${blockIndex}_${qIndex}`;
+            return selectedValues[questionId] || 0;
+        }
+
+        function calculateBlockScores() {
+            const blockScores = [];
+
+            for (let b = 0; b < blocks.length; b++) {
+                let sum = 0;
+                let answered = 0;
+                for (let q = 0; q < blocks[b].questions.length; q++) {
+                    const value = getQuestionValue(b, q);
+                    if (value > 0) {
+                        sum += value;
+                        answered++;
+                    }
+                }
+                const avg = answered === blocks[b].questions.length ? sum / blocks[b].questions.length : 0;
+                blockScores.push({
+                    blockId: b + 1,
+                    blockName: blocks[b].name,
+                    score: avg,
+                    percent: Math.round(avg * 20),
+                    specialities: blocks[b].specialities
+                });
+            }
+
+            return blockScores;
+        }
+
+        function saveResultsAndRedirect() {
+            const blockScores = calculateBlockScores();
+
+            for (let i = 0; i < blockScores.length; i++) {
+                if (blockScores[i].score === 0) {
+                    alert('Пожалуйста, ответьте на все вопросы теста!');
+                    return false;
+                }
+            }
+
+            let maxScore = -1;
+            let bestBlockIndex = -1;
+            blockScores.forEach((block, idx) => {
+                if (block.score > maxScore) {
+                    maxScore = block.score;
+                    bestBlockIndex = idx;
+                }
+            });
+
+            const bestBlock = blockScores[bestBlockIndex];
+
+            const additionalBlocks = [];
+            blockScores.forEach((block, idx) => {
+                if (idx !== bestBlockIndex && block.score >= 3.0) {
+                    additionalBlocks.push({
+                        blockName: block.blockName,
+                        specialities: block.specialities,
+                        score: block.score
+                    });
+                }
+            });
+
+            if (additionalBlocks.length === 0) {
+                const sorted = [...blockScores].sort((a, b) => b.score - a.score);
+                for (let i = 1; i < Math.min(3, sorted.length); i++) {
+                    additionalBlocks.push({
+                        blockName: sorted[i].blockName,
+                        specialities: sorted[i].specialities,
+                        score: sorted[i].score
+                    });
+                }
+            }
+
+            const results = {
+                blockScores: blockScores,
+                bestBlock: {
+                    name: bestBlock.blockName,
+                    specialities: bestBlock.specialities,
+                    score: bestBlock.score,
+                    percent: bestBlock.percent
+                },
+                additionalBlocks: additionalBlocks
+            };
+
+            localStorage.setItem('testResults', JSON.stringify(results));
+            window.location.href = 'result-test.html';
+            return true;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('instructionModal');
+            const testContainer = document.getElementById('testContainer');
+            if (modal) {
+                modal.classList.add('hidden');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    if (testContainer) testContainer.style.display = 'block';
+                    renderForm();
+                    initAnimations();
+                }, 300);
+            }
+        }
+
+        function initAnimations() {
+            gsap.from(".top-nav", {
+                y: -40,
+                opacity: 0,
+                duration: 0.6,
+                ease: "power2.out"
+            });
+
+            gsap.from(".logo-icon", {
+                scale: 0,
+                opacity: 0,
+                duration: 0.8,
+                ease: "back.out(1.7)"
+            });
+
+            gsap.from(".test-header", {
+                y: 30,
+                opacity: 0,
+                duration: 0.5
+            });
+
+            gsap.from(".block", {
+                y: 30,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.1
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const closeBtn = document.getElementById('closeModalBtn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeModal);
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            if (submitBtn) {
+                submitBtn.addEventListener('click', saveResultsAndRedirect);
+            }
+        });
+    </script>
+</body>
+</html>

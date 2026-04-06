@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Википедия специальностей | НовГУ</title>
+  <link rel="stylesheet" href="./styles/common.css">
+  <link rel="stylesheet" href="./styles/viki.css">
+</head>
+<body>
+  <header>
+    <nav class="top-nav">
+      <div class="top-nav-container" id="navMenu">
+        <a href="vikipedia.html" class="nav-link">Википедия специальностей</a>
+        <a href="test.html" class="nav-link">Тест на профориентацию</a>
+        <a href="#" class="nav-link">О нас</a>
+        <a href="#" class="nav-link">Фото</a>
+      </div>
+      <button class="burger-btn" id="burgerBtn" aria-label="Меню">
+        <span class="burger-icon"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <div class="logo">
+      <img src="./images/NovSU_logo_rus_horizontal 1.png" alt="Новгородский государственный университет имени Ярослава Мудрого">
+    </div>
+
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="history.back()">
+        <span>←</span> Назад
+      </button>
+    </div>
+
+    <div class="breadcrumb">
+      <a href="main.html">Главная</a> >
+      <span>Википедия</span>
+    </div>
+
+    <div class="specialties-grid">
+      <div class="specialty-card">
+        <a href="#">
+          <div class="specialty-code">09.02.01</div>
+          <div class="specialty-title">Компьютерные системы и комплексы</div>
+        </a>
+      </div>
+
+      <div class="specialty-card">
+        <a href="#">
+          <div class="specialty-code">11.01.02</div>
+          <div class="specialty-title">Радиомеханик</div>
+        </a>
+      </div>
+
+      <div class="specialty-card">
+        <a href="#">
+          <div class="specialty-code">15.02.16</div>
+          <div class="specialty-title">Технология машиностроения</div>
+        </a>
+      </div>
+
+      <div class="specialty-card">
+        <a href="#">
+          <div class="specialty-code">25.02.08</div>
+          <div class="specialty-title">Эксплуатация беспилотных авиационных систем</div>
+        </a>
+      </div>
+
+      <div class="specialty-card">
+        <a href="#">
+          <div class="specialty-code">09.02.06</div>
+          <div class="specialty-title">Сетевое и системное администрирование</div>
+        </a>
+      </div>
+
+      <div class="specialty-card">
+        <a href="#">
+          <div class="specialty-code">11.02.13</div>
+          <div class="specialty-title">Твердотельная электроника</div>
+        </a>
+      </div>
+
+      <div class="specialty-card">
+        <a href="#">
+          <div class="specialty-code">15.02.18</div>
+          <div class="specialty-title">Техническая эксплуатация и обслуживание роботизированного производства</div>
+        </a>
+      </div>
+
+      <div class="specialty-card">
+        <a href="#">
+          <div class="specialty-code">54.02.01</div>
+          <div class="specialty-title">Дизайн</div>
+        </a>
+      </div>
+
+      <div class="specialty-card">
+        <a href="vikipedia-elements.html">
+          <div class="specialty-code">09.02.07</div>
+          <div class="specialty-title">Информационные системы и программирование</div>
+        </a>
+      </div>
+
+      <div class="specialty-card">
+        <a href="#">
+          <div class="specialty-code">11.02.17</div>
+          <div class="specialty-title">Разработка электронных устройств и систем</div>
+        </a>
+      </div>
+
+      <div class="specialty-card">
+        <a href="#">
+          <div class="specialty-code">23.02.07</div>
+          <div class="specialty-title">Техническое обслуживание и ремонт двигателей, систем и агрегатов автомобилей</div>
+        </a>
+      </div>
+
+      <div class="specialty-card">
+        <a href="#">
+          <div class="specialty-code">54.01.20</div>
+          <div class="specialty-title">Графический дизайнер</div>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <span>© НовГУ 1993-2025</span>
+      <a href="#">Сведения об образовательной организации</a>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+    <div class="footer-right">
+      <address>
+        <div>ул.Большая Санкт-Петербургская,41, каб.1101,1103</div>
+        <div>Приемная комиссия: <a href="tel:+78162332044">+7(8162)33-20-44</a></div>
+      </address>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const burger = document.getElementById('burgerBtn');
+      const menu = document.getElementById('navMenu');
+      
+      if (burger && menu) {
+        burger.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menu.classList.toggle('open');
+          burger.classList.toggle('active');
+        });
+        
+        menu.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            menu.classList.remove('open');
+            burger.classList.remove('active');
+          });
+        });
+        
+        document.addEventListener('click', function(event) {
+          if (!menu.contains(event.target) && !burger.contains(event.target)) {
+            menu.classList.remove('open');
+            burger.classList.remove('active');
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

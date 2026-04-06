@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="stylesheet" href="./styles/common.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <title>Профориентация | НовГУ</title>
+</head>
+<body>
+
+<header>
+    <nav class="top-nav">
+        <div class="top-nav-container" id="navMenu">
+            <a href="vikipedia.html" class="nav-link">Википедия специальностей</a>
+            <a href="test.html" class="nav-link">Тест на профориентацию</a>
+            <a href="#" class="nav-link">О нас</a>
+            <a href="#" class="nav-link">Фото</a>
+        </div>
+        <button class="burger-btn" id="burgerBtn" aria-label="Меню">
+            <span class="burger-icon"></span>
+        </button>
+    </nav>
+</header>
+
+<main>
+    <div class="logo">
+        <img src="./images/NovSU_logo_rus_horizontal 1.png" alt="Новгородский государственный университет имени Ярослава Мудрого">
+    </div>
+
+    <section class="hero-section">
+        <div class="hero-image">
+            <img src="./images/9R0A4907 3.png" alt="Студенты НовГУ">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Узнайте, какая профессия вам ближе!</h1>
+            <p class="hero-description">
+                С помощью нашего теста вы сможете понять, какая из профессий, представленных в университете и колледже, подходит вам лучше всего.
+                Ответьте на несколько вопросов — и вы узнаете, в какой области сможете раскрыть свой потенциал.
+                Сделайте первый шаг к осознанному выбору будущей карьеры уже сегодня!
+            </p>
+            <div class="test-button">
+                <a href="test.html">Пройти тест</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-left">
+        <span>© НовГУ 1993-2025</span>
+        <a href="#">Сведения об образовательной организации</a>
+        <a href="#">Политика конфиденциальности</a>
+    </div>
+    <div class="footer-right">
+        <address>
+            <div>ул.Большая Санкт-Петербургская,41, каб.1101,1103</div>
+            <div>Приемная комиссия: <a href="tel:+78162332044">+7(8162)33-20-44</a></div>
+        </address>
+    </div>
+</footer>
+
+<script>
+    (function() {
+        const burger = document.getElementById('burgerBtn');
+        const menu = document.getElementById('navMenu');
+        
+        if (burger && menu) {
+            burger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                menu.classList.toggle('open');
+                burger.classList.toggle('active');
+            });
+            
+            menu.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.remove('open');
+                    burger.classList.remove('active');
+                });
+            });
+            
+            document.addEventListener('click', function(event) {
+                if (!menu.contains(event.target) && !burger.contains(event.target)) {
+                    menu.classList.remove('open');
+                    burger.classList.remove('active');
+                }
+            });
+        }
+    })();
+</script>
+</body>
+</html>
